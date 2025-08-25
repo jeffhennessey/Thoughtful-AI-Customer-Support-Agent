@@ -42,7 +42,8 @@ def preprocess_text(text):
     return re.sub(r'[^\w\s]', '', text)
 
 # Setup embeddings and vector store
-embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+#embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2") -- changed to CPU only for Streamlit
+embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2", model_kwargs={"device": "cpu"})
 docs = [Document(page_content=preprocess_text(row["question"]), metadata={"answer": row["answer"]}) for _, row in df.iterrows()]
 vectorstore = FAISS.from_documents(docs, embeddings)
 
