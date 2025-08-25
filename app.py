@@ -8,6 +8,7 @@ from langchain.schema import Document
 from langchain_openai import OpenAI
 from langchain.agents import initialize_agent, Tool, AgentType
 from langchain_community.tools import DuckDuckGoSearchRun
+from langchain_openai import ChatOpenAI
 
 # Hardcoded dataset
 data = {
@@ -68,7 +69,10 @@ if not api_key:
     llm = None
     agent = None
 else:
-    llm = OpenAI(temperature=0.7)
+   # llm = OpenAI(temperature=0.7) - deprecated. Changing to ChatOpenAI
+   from langchain_openai import ChatOpenAI
+
+   llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0.7, api_key=os.getenv("OPENAI_API_KEY"))
     agent = initialize_agent(tools, llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, handle_parsing_errors=True)
 
 # Main UI
