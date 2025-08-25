@@ -72,8 +72,8 @@ else:
    # llm = OpenAI(temperature=0.7) - deprecated. Changing to ChatOpenAI
    from langchain_openai import ChatOpenAI
 
-   llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0.7, api_key=os.getenv("OPENAI_API_KEY"))
-    agent = initialize_agent(tools, llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, handle_parsing_errors=True)
+   llm = ChatOpenAI(temperature=0.7, api_key=os.getenv("OPENAI_API_KEY"))
+   agent = initialize_agent(tools, llm, agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, handle_parsing_errors=True)
 
 # Main UI
 st.title("Thoughtful AI Customer Support Agent")
